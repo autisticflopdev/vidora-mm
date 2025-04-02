@@ -12,9 +12,11 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001",
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "http://localhost:5174",
       "https://vidora.su",
       "https://stats.vidora.su",
-      "http://localhost:5173",
       "https://6942069.vidora.su",
       "https://6969.vidora.su",
       "https://beta.hexa.watch",
@@ -33,6 +35,10 @@ app.use(express.json());
 
 app.use("/", routes);
 app.use("/admin", adminRoutes);
+
+app.get('/health', (_, res) => {
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
 
 const startServer = async () => {
   try {

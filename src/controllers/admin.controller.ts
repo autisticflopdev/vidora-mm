@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { AuthService } from "../services/auth.service";
 import { StatsService } from "../services/stats.service";
+import { validationResult } from "express-validator";
 
 export class AdminController {
   private static instance: AdminController;
@@ -21,6 +22,12 @@ export class AdminController {
 
   public login = async (req: Request, res: Response): Promise<void> => {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        res.status(400).json({ errors: errors.array() });
+        return;
+      }
+
       const { accessToken } = req.body;
 
       if (!accessToken) {
@@ -35,7 +42,8 @@ export class AdminController {
       }
 
       const token = this.authService.generateToken();
-      res.json({
+      
+      res.status(200).json({
         token,
         admin: {
           role: "admin",

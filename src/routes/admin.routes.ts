@@ -20,6 +20,10 @@ router.post(
   adminController.login
 );
 
+if (process.env.NODE_ENV === "development") {
+  router.get("/access-token", adminController.getAccessToken);
+}
+
 router.get("/stats", authMiddleware.requireAuth, adminController.getStats);
 
 router.get("/sources", authMiddleware.requireAuth, sourceController.getSources);
@@ -43,9 +47,5 @@ router.post(
   authMiddleware.requireAuth,
   sourceController.updatePriorities
 );
-
-if (process.env.NODE_ENV === "development") {
-  router.get("/access-token", adminController.getAccessToken);
-}
 
 export default router;
