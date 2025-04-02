@@ -10,19 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://vidora.su",
-      "https://stats.vidora.su",
-      "https://6942069.vidora.su",
-      "https://6969.vidora.su",
-      "https://beta.hexa.watch",
-      "https://hexa.watch",
-      "https://sisisi.hexa.watch",
-    ],
+    origin: "*",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
